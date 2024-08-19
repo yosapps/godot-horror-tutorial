@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://chojuwaie18rk"]
+[gd_scene load_steps=10 format=3 uid="uid://chojuwaie18rk"]
 
 [ext_resource type="PackedScene" uid="uid://cc5dgjncdt8c6" path="res://scenes/player.tscn" id="1_0x5jw"]
+[ext_resource type="PackedScene" uid="uid://dhnh1g4ulvdgm" path="res://assets/field/horror.glb" id="2_n4ud1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_52wn5"]
 sky_top_color = Color(0.536466, 0.613166, 0.794746, 1)
@@ -11,7 +12,6 @@ ground_horizon_color = Color(0.684116, 0.695542, 0.731936, 1)
 sky_material = SubResource("ProceduralSkyMaterial_52wn5")
 
 [sub_resource type="Environment" id="Environment_aqqla"]
-background_mode = 2
 sky = SubResource("Sky_r64o7")
 tonemap_mode = 2
 
@@ -34,51 +34,60 @@ environment = SubResource("Environment_aqqla")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.838671, -0.350087, 0.417218, 2.67186e-16, 0.766044, 0.642788, -0.544639, -0.539087, 0.642459, 0, 8.35214, 0)
-
-[node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.5, 2.08165e-12)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_rndek")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("BoxMesh_brq68")
+light_energy = 0.002
 
 [node name="Player" parent="." instance=ExtResource("1_0x5jw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.393, 1, -0.363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
+SPEED = 4.0
+DASH_SPEED = 8.0
 
-[node name="Wall" type="StaticBody3D" parent="."]
+[node name="TestField" type="Node3D" parent="."]
+process_mode = 4
+visible = false
+
+[node name="Floor" type="StaticBody3D" parent="TestField"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.5, 2.08165e-12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestField/Floor"]
+shape = SubResource("BoxShape3D_rndek")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Floor"]
+mesh = SubResource("BoxMesh_brq68")
+
+[node name="Wall" type="StaticBody3D" parent="TestField"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7092, 2.5, -15.0394)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestField/Wall"]
 shape = SubResource("BoxShape3D_m271b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Wall"]
 mesh = SubResource("BoxMesh_v23ap")
 
-[node name="Wall2" type="StaticBody3D" parent="."]
+[node name="Wall2" type="StaticBody3D" parent="TestField"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6881, 2.5, -15.0394)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestField/Wall2"]
 shape = SubResource("BoxShape3D_m271b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Wall2"]
 mesh = SubResource("BoxMesh_v23ap")
 
-[node name="Wall3" type="StaticBody3D" parent="."]
+[node name="Wall3" type="StaticBody3D" parent="TestField"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6881, 2.5, 13.5884)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestField/Wall3"]
 shape = SubResource("BoxShape3D_m271b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Wall3"]
 mesh = SubResource("BoxMesh_v23ap")
 
-[node name="Wall4" type="StaticBody3D" parent="."]
+[node name="Wall4" type="StaticBody3D" parent="TestField"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2189, 2.5, 13.5884)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestField/Wall4"]
 shape = SubResource("BoxShape3D_m271b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Wall4"]
 mesh = SubResource("BoxMesh_v23ap")
+
+[node name="horror" parent="." instance=ExtResource("2_n4ud1")]
