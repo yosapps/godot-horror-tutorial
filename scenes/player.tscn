@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc5dgjncdt8c6"]
+[gd_scene load_steps=8 format=3 uid="uid://cc5dgjncdt8c6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_npt7x"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_krvaq"]
 [ext_resource type="Script" path="res://scripts/light.gd" id="3_pvdtc"]
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="4_p74ui"]
+[ext_resource type="FontFile" uid="uid://cqcoen4qu2n6d" path="res://assets/fonts/rounded-mplus-1p-bold.ttf" id="5_q4xye"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ac3u1"]
 
@@ -27,3 +29,30 @@ script = ExtResource("2_krvaq")
 spot_range = 15.0
 spot_angle = 30.0
 script = ExtResource("3_pvdtc")
+
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+process_mode = 3
+target_position = Vector3(0, 0, -2)
+script = ExtResource("4_p74ui")
+
+[node name="Look" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Pointer" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_q4xye")
+theme_override_font_sizes/font_size = 32
+text = "・"
+horizontal_alignment = 1
+vertical_alignment = 1

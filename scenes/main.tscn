@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://chojuwaie18rk"]
+[gd_scene load_steps=12 format=3 uid="uid://chojuwaie18rk"]
 
 [ext_resource type="PackedScene" uid="uid://cc5dgjncdt8c6" path="res://scenes/player.tscn" id="1_0x5jw"]
-[ext_resource type="PackedScene" uid="uid://dhnh1g4ulvdgm" path="res://assets/field/horror.glb" id="2_n4ud1"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_kmcs0"]
+[ext_resource type="PackedScene" uid="uid://ds7x06xhhyc0o" path="res://scenes/field.tscn" id="3_4iacx"]
+[ext_resource type="PackedScene" uid="uid://da4f20noekxsd" path="res://scenes/objects/key.tscn" id="4_d2xae"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_52wn5"]
 sky_top_color = Color(0.536466, 0.613166, 0.794746, 1)
@@ -29,6 +31,7 @@ size = Vector3(15, 5, 15)
 size = Vector3(15, 5, 15)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_kmcs0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_aqqla")
@@ -91,4 +94,13 @@ shape = SubResource("BoxShape3D_m271b")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TestField/Wall4"]
 mesh = SubResource("BoxMesh_v23ap")
 
-[node name="horror" parent="." instance=ExtResource("2_n4ud1")]
+[node name="Field" parent="." instance=ExtResource("3_4iacx")]
+
+[node name="Key" parent="." instance=ExtResource("4_d2xae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5848, 0.0297952, -7.52922)
+object_name = "鍵"
+object_type = 1
+
+[node name="Key2" parent="." instance=ExtResource("4_d2xae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75561, 0.0297952, -7.52922)
+object_name = "鍵"
