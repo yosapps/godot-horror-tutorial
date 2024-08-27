@@ -9,7 +9,7 @@ enum ObjectType {
 @export var object_name: String  = ""
 @export var object_type: ObjectType
 @export_multiline var description: String  = ""
-@export_multiline var dialog_player: String = ""
+@export_multiline var dialog_player: Array[String] = []
 
 var rotating = false
 var looking = false
@@ -38,10 +38,16 @@ func look_object():
 	prev_rotation = global_rotation
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().paused = true
-	global_position = get_node("/root/Main/Player/Head/Look").global_position
+	var show = get_node("/root/Main/Player/UI/SubViewportContainer/SubViewport")
+	get_parent().remove_child(self)
+	show.add_child(self)
+	position = Vector3.ZERO
 	
 func return_object():
 	looking = false
+	var show = get_node("/root/Main")
+	get_parent().remove_child(self)
+	show.add_child(self)
 	global_position = prev_position
 	global_rotation = prev_rotation
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

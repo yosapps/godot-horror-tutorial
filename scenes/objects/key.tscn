@@ -9,6 +9,9 @@ size = Vector3(0.929138, 0.556885, 3.04065)
 [node name="Key" type="StaticBody3D"]
 process_mode = 3
 script = ExtResource("1_08mj7")
+description = "普通の鍵"
+dialog_player = Array[String](["これは.. 鍵？
+どこの鍵だろうか..", "まずは探索してみよう"])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.00880432, -0.00123291, 0.0477844)

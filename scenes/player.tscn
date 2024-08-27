@@ -1,14 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc5dgjncdt8c6"]
+[gd_scene load_steps=11 format=3 uid="uid://cc5dgjncdt8c6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_npt7x"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_krvaq"]
 [ext_resource type="Script" path="res://scripts/light.gd" id="3_pvdtc"]
 [ext_resource type="Script" path="res://scripts/pickup.gd" id="4_p74ui"]
 [ext_resource type="FontFile" uid="uid://cqcoen4qu2n6d" path="res://assets/fonts/rounded-mplus-1p-bold.ttf" id="5_q4xye"]
+[ext_resource type="Script" path="res://scripts/dialog.gd" id="6_3g578"]
+[ext_resource type="Texture2D" uid="uid://cpagwgrsrnw6k" path="res://sprites/arrow.png" id="7_00t35"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ac3u1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ixxln"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1rkuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_00t35")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_npt7x")
@@ -38,17 +54,73 @@ script = ExtResource("4_p74ui")
 [node name="Look" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
-[node name="Pointer" type="Label" parent="."]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="UI"]
 unique_name_in_owner = true
+visible = false
+self_modulate = Color(0, 0, 0, 0.843137)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="UI/BG"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -774.0
+offset_top = 89.0
+offset_right = -85.0
+offset_bottom = 145.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("5_q4xye")
+theme_override_font_sizes/font_size = 40
+text = "Item Name
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="UI/BG"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -766.0
+offset_top = -363.0
+offset_right = -83.0
+offset_bottom = 468.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_q4xye")
+theme_override_font_sizes/font_size = 32
+text = "Description"
+
+[node name="Pointer" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -11.5
+offset_top = -23.0
 offset_right = 20.0
-offset_bottom = 11.5
+offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_q4xye")
@@ -56,3 +128,74 @@ theme_override_font_sizes/font_size = 32
 text = "・"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -862.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1058, 1080)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="UI/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.389048, 0, 0.391156)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="UI/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.35354)
+light_energy = 6.0
+light_indirect_energy = 8.0
+light_angular_distance = 50.0
+
+[node name="Dialog" type="Panel" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -312.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("6_3g578")
+
+[node name="Text" type="Label" parent="UI/Dialog"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -901.0
+offset_top = -109.0
+offset_right = 890.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_q4xye")
+theme_override_font_sizes/font_size = 32
+text = "Dialog"
+
+[node name="Next" type="AnimatedSprite2D" parent="UI/Dialog"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1872, 267)
+sprite_frames = SubResource("SpriteFrames_1rkuj")
+autoplay = "default"
+
+[node name="TextDelay" type="Timer" parent="UI"]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[connection signal="timeout" from="UI/TextDelay" to="UI/Dialog" method="_on_text_delay_timeout"]

@@ -14,9 +14,7 @@ ground_horizon_color = Color(0.684116, 0.695542, 0.731936, 1)
 sky_material = SubResource("ProceduralSkyMaterial_52wn5")
 
 [sub_resource type="Environment" id="Environment_aqqla"]
-background_energy_multiplier = 0.0
 sky = SubResource("Sky_r64o7")
-tonemap_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rndek"]
 size = Vector3(50, 1, 50)
